@@ -157,7 +157,7 @@ let g:watchdogs#default_config = {
 \  "watchdogs_checker/pyflakes" : {
 \    "command" : "pyflakes",
 \    "exec"    : '%c %o %s:p',
-\     "quickfix/errorformat" : '%f:%l:%m',
+\    "quickfix/errorformat" : "%E%f:%l: could not compile,%-Z%p^,%E%f:%l:%c: %m,%W%f:%l: %m,%-G%.%#",
 \  },
 \
 \
