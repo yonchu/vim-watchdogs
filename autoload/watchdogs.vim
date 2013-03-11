@@ -110,6 +110,11 @@ let g:watchdogs#default_config = {
 \    "quickfix/errorformat" : "%f: line %l\\,\ col %c\\, %m,%-G%.%#error,%-G",
 \  },
 \
+\  "watchdogs_checker/gjslint" : {
+\    "command" : "gjslint",
+\    "exec"    : "%c --nosummary --unix_mode --nodebug_indentation --nobeep %s:p",
+\    "quickfix/errorformat" : "%f:%l:(New Error -%\\?\%n) %m,%f:%l:(-%\\?%n) %m,%-G1 files checked, no errors found.,%-G%.%#",
+\  },
 \
 \  "lua/watchdogs_checker" : {
 \    "type" : "watchdogs_checker/luac",
@@ -158,6 +163,17 @@ let g:watchdogs#default_config = {
 \    "command" : "pyflakes",
 \    "exec"    : '%c %o %s:p',
 \    "quickfix/errorformat" : "%E%f:%l: could not compile,%-Z%p^,%E%f:%l:%c: %m,%W%f:%l: %m,%-G%.%#",
+\  },
+\
+\  "watchdogs_checker/pep8" : {
+\     "command" : "pep8",
+\     "exec"    : "%c %o %s:p",
+\  },
+\
+\  "watchdogs_checker/flake8" : {
+\     "command" : "flake8",
+\     "exec"    : "%c %o %s:p",
+\     "quickfix/errorformat" : "%E%f:%l: could not compile,%-Z%p^,%E%f:%l:%c: %t%n %m,%E%f:%l: %t%n %m,%-G%.%#",
 \  },
 \
 \
