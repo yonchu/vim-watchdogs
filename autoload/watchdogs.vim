@@ -107,7 +107,7 @@ let g:watchdogs#default_config = {
 \  "watchdogs_checker/jshint" : {
 \    "command" : "jshint",
 \    "exec"    : "%c %s:p",
-\    "quickfix/errorformat" : "%f: line %l\\,\ col %c\\, %m",
+\    "quickfix/errorformat" : "%f: line %l\\,\ col %c\\, %m,%-G%.%#error,%-G",
 \  },
 \
 \
