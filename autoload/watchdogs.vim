@@ -2,266 +2,189 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-let g:watchdogs#default_config = {
-\
-\  "watchdogs_checker/_" : {
-\    "runner" : "vimproc",
-\    "outputter" : "quickfix",
-\    "hook/hier_update/enable_exit" : 1,
-\    "hook/quickfix_stateus_enable/enable_exit" : 1,
-\    "hook/shebang/enable" : 0,
-\  },
-\
-\
-\  "c/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/gcc"
-\  },
-\
-\  "watchdogs_checker/gcc" : {
-\    "command"   : "gcc",
-\    "exec"      : "%c %o -fsyntax-only %s:p ",
-\  },
-\
-\  "watchdogs_checker/clang" : {
-\    "command"   : "clang",
-\    "exec"      : "%c %o -fsyntax-only %s:p ",
-\  },
-\
-\
-\  "cpp/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/g++"
-\  },
-\
-\  "watchdogs_checker/g++" : {
-\    "command"   : "g++",
-\    "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
-\  },
-\
-\  "watchdogs_checker/g++03" : {
-\    "command"   : "g++",
-\    "exec"      : "%c %o -fsyntax-only %s:p ",
-\  },
-\
-\  "watchdogs_checker/clang++" : {
-\    "command"   : "clang++",
-\    "exec"      : "%c %o -std=gnu++0x -fsyntax-only %s:p ",
-\  },
-\
-\  "watchdogs_checker/clang++03" : {
-\    "command"   : "clang++",
-\    "exec"      : "%c %o -fsyntax-only %s:p ",
-\  },
-\
-\  "watchdogs_checker/msvc" : {
-\    "command"   : "cl",
-\    "exec"      : "%c /Zs %o %s:p ",
-\  },
-\
-\
-\  "coffee/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/coffee",
-\  },
-\
-\  "watchdogs_checker/coffee" : {
-\    "command" : "coffee",
-\    "exec"    : "%c -c -l -o /tmp %o %s:p",
-\    "quickfix/errorformat" : 'Syntax%trror: In %f\, %m on line %l,%EError: In %f\, Parse error on line %l: %m,%EError: In %f\, %m on line %l,%W%f(%l): lint warning: %m,%-Z%p^,%W%f(%l): warning: %m,%-Z%p^,%E%f(%l): SyntaxError: %m,%-Z%p^,%-G%.%#',
-\  },
-\
-\  "watchdogs_checker/coffeelint" : {
-\    "command" : "coffeelint",
-\    "exec"    : "%c --csv %o %s:p",
-\    "quickfix/errorformat" : '%f\,%l\,%trror\,%m',
-\  },
-\
-\
-\  "d/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/dmd",
-\  },
-\
-\  "watchdogs_checker/dmd" : {
-\    "command" : "dmd",
-\    "exec"    : "%c %o -c %s:p",
-\  },
-\
-\
-\  "haskell/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/ghc-mod"
-\  },
-\
-\  "watchdogs_checker/ghc-mod" : {
-\    "command" : "ghc-mod",
-\    "exec"    : '%c %o --hlintOpt="--language=XmlSyntax" check %s:p',
-\  },
-\
-\  "watchdogs_checker/hlint" : {
-\    "command" : "hlint",
-\    "exec"    : '%c %o %s:p',
-\  },
-\
-\
-\  "javascript/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/jshint"
-\  },
-\
-\  "watchdogs_checker/jshint" : {
-\    "command" : "jshint",
-\    "exec"    : "%c %s:p",
-\    "quickfix/errorformat" : "%f: line %l\\,\ col %c\\, %m,%-G%.%#error,%-G",
-\  },
-\
-\  "watchdogs_checker/gjslint" : {
-\    "command" : "gjslint",
-\    "exec"    : "%c --nosummary --unix_mode --nodebug_indentation --nobeep %s:p",
-\    "quickfix/errorformat" : "%f:%l:(New Error -%\\?\%n) %m,%f:%l:(-%\\?%n) %m,%-G1 files checked, no errors found.,%-G%.%#",
-\  },
-\
-\  "lua/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/luac",
-\  },
-\
-\  "watchdogs_checker/luac" : {
-\    "command" : "luac",
-\    "exec"    : "%c %o %s:p",
-\    "quickfix/errorformat" : '%.%#: %#%f:%l: %m',
-\  },
-\
-\
-\  "perl/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/perl",
-\  },
-\
-\  "watchdogs_checker/perl" : {
-\    "command" : "perl",
-\    "exec"    : "%c %o -c %s:p",
-\    "quickfix/errorformat" : '%m\ at\ %f\ line\ %l%.%#',
-\  },
-\
-\  "watchdogs_checker/vimparse.pl" : {
-\    "command" : "perl",
-\    "exec"    : "%c " . substitute(expand('<sfile>:p:h:h'), '\\', '\/', "g") . "/bin/vimparse.pl" . " -c %o %s:p",
-\    "quickfix/errorformat" : '%f:%l:%m',
-\  },
-\
-\
-\  "php/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/php",
-\  },
-\
-\  "watchdogs_checker/php" : {
-\    "command" : "php",
-\    "exec"    : "%c %o -l %s:p",
-\    "quickfix/errorformat" : '%m\ in\ %f\ on\ line\ %l',
-\  },
-\
-\
-\  "python/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/pyflakes",
-\  },
-\
-\  "watchdogs_checker/pyflakes" : {
-\    "command" : "pyflakes",
-\    "exec"    : '%c %o %s:p',
-\    "quickfix/errorformat" : "%E%f:%l: could not compile,%-Z%p^,%E%f:%l:%c: %m,%W%f:%l: %m,%-G%.%#",
-\  },
-\
-\  "watchdogs_checker/pep8" : {
-\     "command" : "pep8",
-\     "exec"    : "%c %o %s:p",
-\  },
-\
-\  "watchdogs_checker/flake8" : {
-\     "command" : "flake8",
-\     "exec"    : "%c %o %s:p",
-\     "quickfix/errorformat" : "%E%f:%l: could not compile,%-Z%p^,%E%f:%l:%c: %t%n %m,%E%f:%l: %t%n %m,%-G%.%#",
-\  },
-\
-\
-\  "ruby/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/ruby"
-\  },
-\
-\  "watchdogs_checker/ruby" : {
-\    "command" : "ruby",
-\    "exec"    : "%c %o -c %s:p",
-\  },
-\
-\
-\  "sass/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/sass",
-\  },
-\  "watchdogs_checker/sass" : {
-\    "command" : "sass",
-\    "exec"    : "%c %o --check ".(executable("compass") ? "--compass" : "")." %s:p",
-\    "quickfix/errorformat"
-\      : '%ESyntax %trror:%m,%C        on line %l of %f,%Z%.%#'
-\      . ',%Wwarning on line %l:,%Z%m,Syntax %trror on line %l: %m',
-\  },
-\
-\
-\  "scss/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/scss",
-\  },
-\  "watchdogs_checker/scss" : {
-\    "command" : "sass",
-\    "exec"    : "%c %o --check ".(executable("compass") ? "--compass" : "")." %s:p",
-\    "quickfix/errorformat"
-\      : '%ESyntax %trror:%m,%C        on line %l of %f,%Z%.%#'
-\      .',%Wwarning on line %l:,%Z%m,Syntax %trror on line %l: %m',
-\  },
-\
-\
-\  "scala/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/scalac"
-\  },
-\
-\  "watchdogs_checker/scalac" : {
-\    "command" : "scalac",
-\    "exec"    : "%c %o %s:p",
-\    "quickfix/errorformat"    : '%f:%l:\ error:\ %m,%-Z%p^,%-C%.%#,%-G%.%#',
-\   },
-\
-\
-\  "sh/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/sh"
-\  },
-\
-\  "watchdogs_checker/sh" : {
-\    "command" : "sh",
-\    "exec"    : "%c -n %o %s:p",
-\    "quickfix/errorformat"    : '%f:\ line\ %l:%m',
-\   },
-\
-\
-\  "zsh/watchdogs_checker" : {
-\    "type" : "watchdogs_checker/sh"
-\  },
-\
-\  "watchdogs_checker/zsh" : {
-\    "command" : "zsh",
-\    "exec"    : "%c -n %o %s:p",
-\    "quickfix/errorformat"    : '%f:%l:%m',
-\   },
-\
-\
-\}
+let g:watchdogs#quickrun_running_check =
+  \ get(g:, "watchdogs#quickrun_running_check", 0)
+
+unlet! s:default_args
+let s:default_args = { "hook/watchdogs_quickrun_running_checker/enable": 0 }
+lockvar! s:default_args
 
 
-function! watchdogs#setup(config, ...)
-  let flag = a:0 && a:1 ? "force" : "keep"
-  for [type, config] in items(g:watchdogs#default_config)
-    if has_key(a:config, type)
-      let a:config[type] = extend(
-      \ a:config[type],
-      \ deepcopy(g:watchdogs#default_config[type]),
-      \ flag
-      \)
+" Script's functions {{{
+function! s:get_valid_checkers(checkers)
+  let checkers = a:checkers
+  if type(checkers) != type([])
+    let checkers = [checkers]
+  endif
+
+  let valid_checkers = []
+  for checker_name in checkers
+    if has_key(g:watchdogs_checkers, checker_name)
+      let config = g:watchdogs_checkers[checker_name]
+    elseif has_key(g:watchdogs_config#default_checkers, checker_name)
+      let config = g:watchdogs_config#default_checkers[checker_name]
     else
-      let a:config[type] = deepcopy(config)
+      echoerr "[Watchdogs] Error: Unknown checker ".checker_name
+    endif
+    if executable(config["command"])
+      call add(valid_checkers, {"name": checker_name, "config": config})
+    endif
+  endfor
+  return valid_checkers
+endfunction
+
+
+function! s:run_checkers(checkers, finish_condition, args, post_args)
+  let checkers = s:get_valid_checkers(a:checkers)
+
+  if len(checkers) == 0
+    return
+  endif
+
+  let checker_name_list = []
+  for checker in checkers
+    call add(checker_name_list, checker["name"])
+  endfor
+  call s:echo_message("[Watchdogs] Start checking (".join(checker_name_list, ", ").")")
+
+  let quickrun_config = extend(deepcopy(g:watchdogs_config#default_quickrun_config),
+    \ g:watchdogs_quickrun_config)
+  call extend(quickrun_config, a:args)
+
+  let quickrun_post_config = extend(deepcopy(g:watchdogs_config#default_quickrun_post_config),
+    \ g:watchdogs_quickrun_post_config)
+  call extend(quickrun_post_config, a:post_args)
+
+  let commands = {
+    \ "list": checkers,
+    \ "index": 0,
+    \ "quickrun_config": deepcopy(quickrun_config),
+    \ "quickrun_post_config": quickrun_post_config,
+    \ "finish_condition": a:finish_condition,
+    \ }
+
+  call extend(quickrun_config, checkers[0]["config"])
+  call quickrun#run(extend(quickrun_config, {"commands": commands}))
+endfunction
+
+
+function! s:get_finish_condition(checker_type, trigger)
+  let finish_condition = get(g:, "watchdogs_check_".a:trigger."_enable", 0)
+  let enables_dict = get(g:, "watchdogs_check_".a:trigger."_enables", {})
+  if has_key(enables_dict, a:checker_type)
+    let finish_condition = enables_dict[a:checker_type]
+  endif
+  return finish_condition
+endfunction
+
+
+function! s:echo_message(msg)
+    let x=&ruler | let y=&showcmd
+    set noruler noshowcmd
+    redraw!
+    echohl Debug | echo strpart(a:msg, 0, &columns-1) | echohl none
+    let &ruler=x | let &showcmd=y
+endfunction
+" }}}
+
+
+" Global functions {{{
+function! watchdogs#run(checker_type, finish_condition, is_oustput_msg, ...)
+  let args = a:0 >= 1 ? a:1 : {}
+  let post_args = a:0 >= 2 ? a:2 : {}
+
+  let checker_type = get(b:, "watchdogs_checker_type", a:checker_type)
+
+  if has_key(g:watchdogs_filetype_checkers, checker_type)
+    let checkers = g:watchdogs_filetype_checkers[checker_type]
+  elseif has_key(g:watchdogs_config#default_filetype_checkers, checker_type)
+    let checkers = g:watchdogs_config#default_filetype_checkers[checker_type]
+  else
+    if a:is_output_msg
+      echoerr "[Watchdogs] Error: Not found filetype_checkers definition (".checker_type.")"
+    endif
+    return
+  endif
+  call s:run_checkers(checkers, a:finish_condition, args, post_args)
+endfunction
+
+
+function! watchdogs#check_bufwrite(filetype)
+  if exists("*quickrun#is_running")
+    if quickrun#is_running()
+      return
+    endif
+  else
+    if g:watchdogs#quickrun_running_check
+      echo "[Watchdogs] Now checking..."
+      return
+    endif
+  endif
+
+  let checker_type = get(b:, "watchdogs_checker_type", a:filetype)
+  let finish_condition = s:get_finish_condition(checker_type, "BufWritePost")
+  if !finish_condition
+    return
+  endif
+  call watchdogs#run(
+    \ checker_type,
+    \ finish_condition,
+    \ 0,
+    \ s:default_args,
+    \ )
+endfunction
+
+
+function! watchdogs#check_cursorhold(filetype)
+  if exists("*quickrun#is_running")
+    if quickrun#is_running()
+      return
+    endif
+  else
+    if g:watchdogs#quickrun_running_check
+      echo "[Watchdogs] Now checking..."
+      return
+    endif
+  endif
+
+  if get(b:, "watchdogs_checked_cursorhold", 1)
+    return
+  endif
+
+  let checker_type = get(b:, "watchdogs_checker_type", a:filetype)
+  let finish_condition = s:get_finish_condition(checker_type, "CursorHold")
+  if !finish_condition
+    return
+  endif
+  call watchdogs#run(
+    \ checker_type,
+    \ finish_condition,
+    \ 0,
+    \ s:default_args,
+    \ )
+  let b:watchdogs_checked_cursorhold=1
+endfunction
+
+
+function! watchdogs#run_sweep()
+  call quickrun#sweep_sessions()
+endfunction
+
+
+function! watchdogs#qfclose()
+  for winnr in range(1, winnr("$"))
+    if getwinvar(winnr, "&buftype") ==# "quickfix"
+      \ && getwinvar(winnr, "quickfix_title") =~? "watchdogs"
+      execute winnr."wincmd q"
+      break
     endif
   endfor
 endfunction
 
+" }}}
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
+
+" vim:fdm=marker commentstring="%s
