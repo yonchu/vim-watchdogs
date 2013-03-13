@@ -142,11 +142,13 @@ let g:watchdogs_config#default_checkers = {
 \
 \  "pep8" : {
 \     "command" : "pep8",
+\     "cmdopt"  : '--ignore="E501"',
 \     "exec"    : "%c %o %s:p",
 \  },
 \
 \  "flake8" : {
 \     "command" : "flake8",
+\     "cmdopt"  : '--ignore="E501"',
 \     "exec"    : "%c %o %s:p",
 \     "errorformat" : "%E%f:%l: could not compile,%-Z%p^,%E%f:%l:%c: %t%n %m,%E%f:%l: %t%n %m,%-G%.%#",
 \  },
