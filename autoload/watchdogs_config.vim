@@ -150,7 +150,11 @@ let g:watchdogs_config#default_checkers = {
 \     "command" : "flake8",
 \     "cmdopt"  : '--ignore="E501"',
 \     "exec"    : "%c %o %s:p",
-\     "errorformat" : "%E%f:%l: could not compile,%-Z%p^,%E%f:%l:%c: %t%n %m,%E%f:%l: %t%n %m,%-G%.%#",
+\     "errorformat" : '%E%f:%l: could not compile,%-Z%p^,'.
+\                     '%W%f:%l:%c: F%n %m,'.
+\                     '%W%f:%l:%c: C%n %m,'.
+\                     '%E%f:%l:%c: %t%n %m,'.
+\                     '%E%f:%l: %t%n %m,%-G%.%#'
 \  },
 \
 \
