@@ -13,6 +13,8 @@ let g:watchdogs_quickrun_config =
 \ get(g:, "watchdogs_quickrun_config", {})
 let g:watchdogs_quickrun_post_config =
 \ get(g:, "watchdogs_quickrun_post_config", {})
+let g:watchdogs_checkers =
+\ get(g:, "watchdogs_checkers", {})
 
 let g:watchdogs_check_BufWritePost_enable =
 \ get(g:, "watchdogs_check_BufWritePost_enable", 0)
