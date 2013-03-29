@@ -67,13 +67,25 @@ let g:watchdogs_config#default_checkers = {
 \  "coffee" : {
 \    "command" : "coffee",
 \    "exec"    : "%c -c -l -o /tmp %o %s:p",
-\    "errorformat" : 'Syntax%trror: In %f\, %m on line %l,%EError: In %f\, Parse error on line %l: %m,%EError: In %f\, %m on line %l,%W%f(%l): lint warning: %m,%-Z%p^,%W%f(%l): warning: %m,%-Z%p^,%E%f(%l): SyntaxError: %m,%-Z%p^,%-G%.%#',
+\    "errorformat" :
+\      '%E%f:%l:%c: %trror: %m,' .
+\      'Syntax%trror: In %f\, %m on line %l,' .
+\      '%EError: In %f\, Parse error on line %l: %m,' .
+\      '%EError: In %f\, %m on line %l,' .
+\      '%W%f(%l): lint warning: %m,' .
+\      '%W%f(%l): warning: %m,' .
+\      '%E%f(%l): SyntaxError: %m,' .
+\      '%-Z%p^,' .
+\      '%-G%.%#'
 \  },
 \
 \  "coffeelint" : {
 \    "command" : "coffeelint",
 \    "exec"    : "%c --csv %o %s:p",
-\    "errorformat" : '%f\,%l\,%trror\,%m',
+\    "errorformat" :
+\      '%f:%l:%c: %trror: %m,' .
+\      'Syntax%trror: %m on line %l,' .
+\      '%-G%.%#'
 \  },
 \
 \
