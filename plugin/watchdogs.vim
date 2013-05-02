@@ -45,7 +45,6 @@ augroup watchdogs-plugin
   autocmd BufWinLeave  * call watchdogs#run_sweep()
   autocmd WinEnter     * if winnr("$") == 1 | call watchdogs#qfclose() | endif
 augroup END
-augroup END
 
 
 let &cpo = s:save_cpo
