@@ -10,26 +10,35 @@ vim-watchdogs
 - 複数checkerの指定
 - watchdogsの設定を ``g:quickrun_config`` から分離
 
-以下のvimプラグインを併用することで
-[scrooloose/syntasticb](https://github.com/scrooloose/syntastic)
-と同等の機能が使用出来ます。
-
-- [jceb/vim-hierb](https://github.com/jceb/vim-hier)
-- [yonchu/quickfixstatus](https://github.com/yonchu/quickfixstatus)
-- [tomtom/quickfixsigns_vim](https://github.com/tomtom/quickfixsigns_vim)
-
 ## インストール方法
+
+依存プラグイン(導入済みの場合は不要)
+
+```vim
+
+NeoBundleLazy 'thinca/vim-quickrun', {
+      \ 'autoload' : {
+      \   'mappings' : [
+      \     ['nxo', '<Plug>(quickrun)']],
+      \   'commands' : 'QuickRun'
+      \ }}
+
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \     'windows' : 'make -f make_mingw32.mak',
+  \     'cygwin' : 'make -f make_cygwin.mak',
+  \     'mac' : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak',
+  \    },
+  \ }
+
+NeoBundle 'osyo-manga/shabadou.vim
+```
+
+vim-watchdogs 本体
 
 ```vim
 NeoBundle 'yonchu/vim-watchdogs', 'multi-checker'
-NeoBundle 'osyo-manga/shabadou.vim
-
-" or
-
-NeoBundle 'yonchu/vim-watchdogs',  {
-      \ 'depends' : [ 'osyo-manga/shabadou.vim' ],
-      \ 'rev' : 'multi-checker',
-      \ }
 
 " or
 
@@ -40,6 +49,35 @@ NeoBundleLazy 'yonchu/vim-watchdogs',  {
       \   'filetypes' : [
       \     'python', 'html', 'javascript', 'coffee', 'perl',
       \     'php', 'ruby', 'scss', 'sass', 'coffee',
+      \ ]}}
+```
+
+さらに、以下のvimプラグインを併用することで
+[scrooloose/syntasticb](https://github.com/scrooloose/syntastic)
+と同等の機能が使用出来ます。
+
+- [jceb/vim-hierb](https://github.com/jceb/vim-hier)
+- [yonchu/quickfixstatus](https://github.com/yonchu/quickfixstatus)
+- [tomtom/quickfixsigns_vim](https://github.com/tomtom/quickfixsigns_vim)
+
+```vim
+NeoBundleLazy 'jceb/vim-hier', {
+      \ 'autoload' : {
+      \   'commands' : [
+      \    'HierStart', 'HierStop', 'HierUpdate', 'HierClear',
+      \ ]}}
+
+NeoBundleLazy 'tomtom/quickfixsigns_vim', {
+      \ 'autoload' : {
+      \   'commands' : [
+      \    'QuickfixsignsSet', 'QuickfixsignsDisable', 'QuickfixsignsEnable',
+      \    'QuickfixsignsToggle', 'QuickfixsignsSelect',
+      \ ]}}
+
+NeoBundleLazy 'yonchu/quickfixstatus', {
+      \ 'autoload' : {
+      \   'commands' : [
+      \    'QuickfixStatusEnable', 'QuickfixStatusDisable',
       \ ]}}
 ```
 
