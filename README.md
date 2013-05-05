@@ -38,13 +38,11 @@ NeoBundle 'osyo-manga/shabadou.vim
 vim-watchdogs 本体
 
 ```vim
-NeoBundle 'yonchu/vim-watchdogs', 'multi-checker'
+NeoBundle 'yonchu/vim-watchdogs'
 
 " or
 
 NeoBundleLazy 'yonchu/vim-watchdogs',  {
-      \ 'depends' : [ 'osyo-manga/shabadou.vim' ],
-      \ 'rev' : 'multi-checker',
       \ 'autoload' : {
       \   'filetypes' : [
       \     'python', 'html', 'javascript', 'coffee', 'perl',
@@ -171,6 +169,6 @@ let g:watchdogs_checkers = {
 
 - [syntastic/syntax_checkers](https://github.com/scrooloose/syntastic/tree/master/syntax_checkers)
 
-ない場合は自身で作成剃る必要があります。
+ない場合は自身で作成する必要があります。
 
 ``:help errorformat``や既存のerrorformatを参考にして下さい。
