@@ -11,6 +11,19 @@ lockvar! s:default_args
 
 
 " Script's functions {{{
+function! s:is_running()
+  if exists("*quickrun#is_running")
+    if quickrun#is_running()
+      return 1
+    endif
+  elseif g:watchdogs#quickrun_running_check
+    echo "[Watchdogs] Now checking..."
+    return 1
+  endif
+  return 0
+endfunction
+
+
 function! s:get_valid_checkers(checkers)
   let checkers = a:checkers
   if type(checkers) != type([])
@@ -110,15 +123,8 @@ endfunction
 
 
 function! watchdogs#check_bufwrite(filetype)
-  if exists("*quickrun#is_running")
-    if quickrun#is_running()
-      return
-    endif
-  else
-    if g:watchdogs#quickrun_running_check
-      echo "[Watchdogs] Now checking..."
-      return
-    endif
+  if s:is_running()
+    return
   endif
 
   let checker_type = get(b:, "watchdogs_checker_type", a:filetype)
@@ -126,6 +132,7 @@ function! watchdogs#check_bufwrite(filetype)
   if !finish_condition
     return
   endif
+
   call watchdogs#run(
     \ checker_type,
     \ finish_condition,
@@ -136,15 +143,8 @@ endfunction
 
 
 function! watchdogs#check_cursorhold(filetype)
-  if exists("*quickrun#is_running")
-    if quickrun#is_running()
-      return
-    endif
-  else
-    if g:watchdogs#quickrun_running_check
-      echo "[Watchdogs] Now checking..."
-      return
-    endif
+  if s:is_running()
+    return
   endif
 
   if get(b:, "watchdogs_checked_cursorhold", 1)
@@ -156,6 +156,7 @@ function! watchdogs#check_cursorhold(filetype)
   if !finish_condition
     return
   endif
+
   call watchdogs#run(
     \ checker_type,
     \ finish_condition,
