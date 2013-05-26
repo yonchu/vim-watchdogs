@@ -1,14 +1,22 @@
 vim-watchdogs
 -------------
 
-[osyo-manga/vim-watchdogsb](https://github.com/osyo-manga/vim-watchdogs) の改良版。
+[osyo-manga/vim-watchdogs](https://github.com/osyo-manga/vim-watchdogs) の改良版。
 
-オリジナルのwatchdogsとの互換性はありません。
+オリジナルとの互換性はありません。
 
 変更点
 
 - 複数checkerの指定
+    - 指定checkerのうち実行可能なものを1つだけ実行
+    - 指定checkerをエラーが検出されるまで順次実行
+    - 指定checkerを全て実行
+    - などの細かな指定が可能
 - watchdogsの設定を ``g:quickrun_config`` から分離
+    - ``g:quickrun_config`` を汚染しない
+    - call watchdogs#setup(g:quickrun_config) の実行不要
+- quickfixsigns_vim を使用して sign 表示を行う
+
 
 ## インストール方法
 
