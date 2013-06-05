@@ -6,7 +6,7 @@ unlet! g:watchdogs_config#default_filetype_checkers
 let g:watchdogs_config#default_filetype_checkers = {
 \  "c"          : [ "gcc" ],
 \  "cpp"        : [ "g++" ],
-\  "coffee"     : executable("coffeeliint") ? [ "coffeelint"] : [ "coffee" ],
+\  "coffee"     : [ "coffeelint", "coffee" ],
 \  "d"          : [ "dmd" ],
 \  "haskel"     : [ "ghc-mod", "hlint" ],
 \  "javascript" : [ "jshint", "gjslint" ],
@@ -66,7 +66,7 @@ let g:watchdogs_config#default_checkers = {
 \
 \  "coffee" : {
 \    "command" : "coffee",
-\    "exec"    : "%c -c -l -o /tmp %o %s:p",
+\    "exec"    : "%c -c -l -p %o %s:p",
 \    "errorformat" :
 \      '%E%f:%l:%c: %trror: %m,' .
 \      'Syntax%trror: In %f\, %m on line %l,' .
@@ -75,6 +75,7 @@ let g:watchdogs_config#default_checkers = {
 \      '%W%f(%l): lint warning: %m,' .
 \      '%W%f(%l): warning: %m,' .
 \      '%E%f(%l): SyntaxError: %m,' .
+\      'Syntax%trror: %m,' .
 \      '%-Z%p^,' .
 \      '%-G%.%#'
 \  },
