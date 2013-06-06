@@ -1,6 +1,8 @@
 vim-watchdogs
 -------------
 
+Syntastic なんていらんかったんや！！
+
 [osyo-manga/vim-watchdogs](https://github.com/osyo-manga/vim-watchdogs) の改良版。
 
 オリジナルとの互換性はありません。
