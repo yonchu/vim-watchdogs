@@ -23,6 +23,19 @@ function! s:is_running()
   return 0
 endfunction
 
+function! s:is_precious_enabled()
+  if !exists('*precious#base_filetype')
+    return 0
+  endif
+  let bf = precious#base_filetype()
+  let cf = precious#context_filetype()
+  if bf == cf
+    return 0
+  endif
+  call s:echo_message("[Watchdogs] Cancel: filetype is changed by vim-precious.")
+  return 1
+endfunction
+
 
 function! s:get_valid_checkers(checkers)
   let checkers = a:checkers
@@ -133,6 +146,10 @@ function! watchdogs#check_bufwrite(filetype)
     return
   endif
 
+  if s:is_precious_enabled()
+    return
+  endif
+
   call watchdogs#run(
     \ checker_type,
     \ finish_condition,
@@ -154,6 +171,10 @@ function! watchdogs#check_cursorhold(filetype)
   let checker_type = get(b:, "watchdogs_checker_type", a:filetype)
   let finish_condition = s:get_finish_condition(checker_type, "CursorHold")
   if !finish_condition
+    return
+  endif
+
+  if s:is_precious_enabled()
     return
   endif
 
