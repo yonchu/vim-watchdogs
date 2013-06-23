@@ -189,7 +189,7 @@ endfunction
 
 
 function! watchdogs#run_sweep()
-  call quickrun#sweep_sessions()
+  silent call quickrun#sweep_sessions()
 endfunction
 
 
