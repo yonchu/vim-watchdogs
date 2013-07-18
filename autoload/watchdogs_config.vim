@@ -66,7 +66,7 @@ let g:watchdogs_config#default_checkers = {
 \
 \  "coffee" : {
 \    "command" : "coffee",
-\    "exec"    : "%c -c -l -p %o %s:p",
+\    "exec"    : "%c -c -p %o %s:p",
 \    "errorformat" :
 \      '%E%f:%l:%c: %trror: %m,' .
 \      'Syntax%trror: In %f\, %m on line %l,' .
