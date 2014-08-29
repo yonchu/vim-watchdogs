@@ -82,10 +82,12 @@ let g:watchdogs_config#default_checkers = {
 \
 \  "coffeelint" : {
 \    "command" : "coffeelint",
-\    "exec"    : "%c --csv %o %s:p",
+\    "exec"    : "%c --reporter csv %s:p | sed -e '1d'",
 \    "errorformat" :
-\      '%f:%l:%c: %trror: %m,' .
-\      'Syntax%trror: %m on line %l,' .
+\      '%f\,%l\,%\d%#\,%trror\,%m,' .
+\      '%f\,%l\,%trror\,%m,' .
+\      '%f\,%l\,%\d%#\,%tarn\,%m,' .
+\      '%f\,%l\,%tarn\,%m,' .
 \      '%-G%.%#'
 \  },
 \
