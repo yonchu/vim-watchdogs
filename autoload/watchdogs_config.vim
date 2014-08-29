@@ -245,7 +245,7 @@ let g:watchdogs_config#default_quickrun_post_config = {
 \  "exec": "%c %o",
 \
 \  "hook/hier_update/enable_exit": 1,
-\  "hook/quickfix_stateus_enable/enable_exit": 1,
+\  "hook/quickfix_status_enable/enable_exit": 1,
 \  "hook/quickfixsigns_enable/enable_exit": 1,
 \
 \  "hook/close_quickfix/enable_exit": 0,
