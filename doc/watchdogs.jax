@@ -1,4 +1,4 @@
-*watchdogs.txt*                   Vim plugin to check syntax with quickrun.vim
+*watchdogs.txt*               quickrun.vim を使った非同期シンタックスチェッカー
 
 
 ==============================================================================
