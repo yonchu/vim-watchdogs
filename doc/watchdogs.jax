@@ -330,7 +330,7 @@ g:watchdogs_check_BufWritePost_enable  *g:watchdogs_check_BufWritePost_enable*
     let g:watchdogs_check_BufWritePost_enable = 0
 <
 
-g:watchdogs_check_BufWritePost_enables  *g:watchdogs_check_BufWritePost_enable*
+g:watchdogs_check_BufWritePost_enables *g:watchdogs_check_BufWritePost_enables*
     filetype毎の保存時の自動実行の設定を行う。
     全体設定(|watchdogs_check_BufWritePost_enable|)よりも優先されます。
     詳しくは |watchdogs-config-checker_settings| を参照して下さい。
