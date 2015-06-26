@@ -229,7 +229,7 @@ Checker settings                           *watchdogs-config-checker_settings*
 <
 
 ------------------------------------------------------------------------------
-Checker settings                           *watchdogs-config-checker_settings*
+Auto check settings                     *watchdogs-config-auto-check_settings*
 
 ファイル保存時の自動実行する。
 
